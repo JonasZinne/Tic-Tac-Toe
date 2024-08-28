@@ -1,4 +1,4 @@
-# Titel 
+# Titel
 print("Tic-Tac-Toe Spiel")
 
 # Variablen
@@ -6,7 +6,7 @@ spiel_aktiv = True
 spieler_aktuell = "X"
 
 # Spielfeld definieren
-spielfeld = [''] + [str(i) for i in range(1, 10)] 
+spielfeld = [''] + [str(i) for i in range(1, 10)]
 
 # Spielfeld ausgeben
 def spielfeld_ausgeben():
@@ -25,13 +25,14 @@ def spieler_eingabe():
 
         try:
             spielzug = int(spielzug)
-            if 1 <= spielzug <= 9:
-                if spielfeld[spielzug] in ['X', 'O']:
-                    print("Dieses Feld ist bereits belegt! Bitte ein anderes Feld eingeben.")
-                else:
-                    return spielzug
-            else:
+            if spielzug < 1 or spielzug > 9:
                 print("Ungültige Eingabe. Bitte eine Zahl zwischen 1 und 9 eingeben.")
+                continue
+
+            if spielfeld[spielzug] in ['X', 'O']:
+                print("Dieses Feld ist bereits belegt! Bitte ein anderes Feld eingeben.")
+            else:
+                return spielzug
 
         except ValueError:
             print("Bitte eine Zahl eingeben.")
