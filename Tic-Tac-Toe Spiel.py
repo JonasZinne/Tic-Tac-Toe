@@ -2,7 +2,6 @@ import random
 
 # Titel
 print("Tic-Tac-Toe Spiel")
-print()
 
 # Variablen
 spiel_aktiv = True
@@ -18,6 +17,7 @@ def spielfeld_ausgeben():
     line_format = " {:^3} | {:^3} | {:^3} "
     separator = "-----|-----|-----"
 
+    print()
     for i in range(1, 10, 3):
         print(line_format.format(spielfeld[i], spielfeld[i+1], spielfeld[i+2]))
         if i < 7:
@@ -36,16 +36,16 @@ def spieler_eingabe():
         try:
             spielzug = int(spielzug)
             if spielzug < 1 or spielzug > 9:
-                print("Ungültige Eingabe. Bitte eine Zahl zwischen 1 und 9 eingeben.")
+                print("Ungültige Eingabe. Bitte eine Zahl zwischen 1 und 9 eingeben.\n")
                 continue
 
             if spielfeld[spielzug] in ['X', 'O']:
-                print("Dieses Feld ist bereits belegt! Bitte ein anderes Feld eingeben.")
+                print("Dieses Feld ist bereits belegt! Bitte ein anderes Feld eingeben.\n")
             else:
                 return spielzug
 
         except ValueError:
-            print("Bitte eine Zahl eingeben.")
+            print("Bitte eine Zahl eingeben.\n")
 
 # Spieler wechseln
 def spieler_wechseln(spieler):
@@ -65,12 +65,12 @@ def kontrolle_unentschieden():
 
 # Spiel wiederholen
 def erneut_spielen():
-    antwort = input("Möchten Sie erneut spielen? (Ja oder Nein) ").lower()
+    antwort = input("\nMöchten Sie erneut spielen? (Ja oder Nein) ").lower()
 
     if antwort == 'ja':
         return True
     elif antwort == 'nein':
-        print("Danke fürs Spielen!")
+        print("Danke fürs Spielen!\n")
 
         print(f"Endstand - Spieler X: {x_wins}, Spieler O: {o_wins}")
         return False
