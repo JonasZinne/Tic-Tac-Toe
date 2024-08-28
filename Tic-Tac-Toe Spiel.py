@@ -35,7 +35,7 @@ def spieler_eingabe():
         except ValueError:
             print("Bitte eine Zahl eingeben")
         else:
-            if 1 <= spielzug >= 9:
+            if 1 <= spielzug <= 9:
                 if spielfeld[spielzug] in ['X', 'O']:
                     print("Dieses Feld ist bereits belegt!")
                     feld_belegt = True
