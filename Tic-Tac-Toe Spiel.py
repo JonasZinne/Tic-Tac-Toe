@@ -47,10 +47,7 @@ def spieler_eingabe():
 def spieler_wechseln():
     global spieler_aktuell
 
-    if spieler_aktuell == 'X':
-        spieler_aktuell = 'O'
-    else:
-        spieler_aktuell = 'X'
+    spieler_aktuell = 'O' if spieler_aktuell == 'X' else 'X'
 
 # Kontrolle auf Gewinnen
 def kontrolle_gewonnen():
