@@ -4,6 +4,8 @@ print("Tic-Tac-Toe Spiel")
 # Variablen
 spiel_aktiv = True
 spieler_aktuell = "X"
+x_wins = 0
+o_wins = 0
 
 # Spielfeld definieren
 spielfeld = [''] + [str(i) for i in range(1, 10)]
@@ -53,6 +55,28 @@ def kontrolle_gewonnen():
 def kontrolle_unentschieden():
     return all(spielfeld[i] in ['X', 'O'] for i in range(1, 10))
 
+# Spiel wiederholen
+def erneut_spielen():
+    antwort = input("Möchten Sie erneut spielen? (Ja oder Nein) ").lower()
+
+    if antwort == 'ja':
+        return True
+    elif antwort == 'nein':
+        print("Danke fürs Spielen!")
+
+        print(f"Gewonnene Spiele - Spieler X: {x_wins}, Spieler O: {o_wins}")
+        return False
+    else:
+        print("Ungültige Eingabe. Bitte 'Ja' oder 'Nein' eingeben.")
+        return erneut_spielen()
+    
+# Spiel zurücksetzen
+def spiel_zuruecksetzen():
+    global spielfeld, spieler_aktuell
+    spielfeld = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    spieler_aktuell = 'X'
+    spielfeld_ausgeben()
+
 # Hauptschleife
 spielfeld_ausgeben()
 while spiel_aktiv:
@@ -67,10 +91,21 @@ while spiel_aktiv:
 
     if kontrolle_gewonnen():
         print(f"Spieler {spieler_aktuell} hat gewonnen!")
+        if spieler_aktuell == 'X':
+            x_wins += 1
+        else:
+            o_wins += 1
+        print(f"Aktueller Stand - X: {x_wins}, O: {o_wins}")
+        if erneut_spielen():
+            spiel_zuruecksetzen()
+            continue
         break
 
     if kontrolle_unentschieden():
-        print("Das Spiel ist Unentschieden ausgegangen")
+        print("Das Spiel ist Unentschieden ausgegangen.")
+        if erneut_spielen():
+            spiel_zuruecksetzen()
+            continue
         break
 
     spieler_aktuell = spieler_wechseln(spieler_aktuell)
