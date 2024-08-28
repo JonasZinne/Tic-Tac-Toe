@@ -9,6 +9,10 @@ spieler_aktuell = random.choice(['X', 'O'])
 x_wins = 0
 o_wins = 0
 
+# Spielernamen eingeben
+spieler_x_name = input("Name des Spielers für 'X': ")
+spieler_o_name = input("Name des Spielers für 'O': ")
+
 # Spielfeld definieren
 spielfeld = [''] + [str(i) for i in range(1, 10)]
 
@@ -75,20 +79,22 @@ def erneut_spielen():
         return True
     else:
         print("Danke fürs Spielen!\n")
-        print(f"Endstand - Spieler X: {x_wins}, Spieler O: {o_wins}")
+        print(f"Endstand - {spieler_x_name}: {x_wins}, {spieler_o_name}: {o_wins}")
         return False
-    
+
 # Spiel zurücksetzen
 def spiel_zuruecksetzen():
-    global spielfeld, spieler_aktuell
+    global spielfeld, spieler_aktuell, aktueller_spieler_name
     spielfeld = [''] + [str(i) for i in range(1, 10)]
     spieler_aktuell = random.choice(['X', 'O'])
+    aktueller_spieler_name = spieler_x_name if spieler_aktuell == 'X' else spieler_o_name
     spielfeld_ausgeben()
 
 # Hauptschleife
 spielfeld_ausgeben()
 while spiel_aktiv:
-    print(f"Der Spieler {spieler_aktuell} ist am Zug.")
+    aktueller_spieler_name = spieler_x_name if spieler_aktuell == 'X' else spieler_o_name
+    print(f"Der Spieler {aktueller_spieler_name} ({spieler_aktuell}) ist am Zug.")
     
     spielzug = spieler_eingabe()
     if spielzug is None:
@@ -98,12 +104,12 @@ while spiel_aktiv:
     spielfeld_ausgeben()
 
     if kontrolle_gewonnen():
-        print(f"Spieler {spieler_aktuell} hat gewonnen!")
+        print(f"Spieler {aktueller_spieler_name} ({spieler_aktuell}) hat gewonnen!")
         if spieler_aktuell == 'X':
             x_wins += 1
         else:
             o_wins += 1
-        print(f"Aktueller Stand - X: {x_wins}, O: {o_wins}")
+        print(f"Aktueller Stand - {spieler_x_name}: {x_wins}, {spieler_o_name}: {o_wins}")
         if erneut_spielen():
             spiel_zuruecksetzen()
             continue
