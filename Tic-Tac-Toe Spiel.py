@@ -12,18 +12,16 @@ spielfeld = [''] + [str(i) for i in range(1, 10)]
 def spielfeld_ausgeben():
     for i in range(1, 10, 3):
         print(f"{spielfeld[i]}|{spielfeld[i+1]}|{spielfeld[i+2]}")
+    print()
 
 # Spielereingabe 
 def spieler_eingabe():
-    global spiel_aktiv
-
     while True:
         spielzug = input("Eingabe Feld: ")
 
         if spielzug.lower() == 'exit':
-            spiel_aktiv = False
             print("Das Spiel wurde beendet.")
-            return
+            return None
 
         try:
             spielzug = int(spielzug)
@@ -37,12 +35,10 @@ def spieler_eingabe():
 
         except ValueError:
             print("Bitte eine Zahl eingeben.")
-            
-# Spieler wechseln
-def spieler_wechseln():
-    global spieler_aktuell
 
-    spieler_aktuell = 'O' if spieler_aktuell == 'X' else 'X'
+# Spieler wechseln
+def spieler_wechseln(spieler):
+    return 'O' if spieler == 'X' else 'X'
 
 # Kontrolle auf Gewinnen
 def kontrolle_gewonnen():
@@ -50,13 +46,11 @@ def kontrolle_gewonnen():
     for a, b, c in kombinationen:
         if spielfeld[a] == spielfeld[b] == spielfeld[c]:
             return spielfeld[a]
-        return None
+    return None
 
 # Kontrolle auf Unentschieden
 def kontrolle_unentschieden():
-    if all(spielfeld[i] in ['X', 'O'] for i in range(1, 10)):
-        return 'unentschieden'
-    return None
+    return all(spielfeld[i] in ['X', 'O'] for i in range(1, 10))
 
 # Hauptschleife
 spielfeld_ausgeben()
@@ -64,19 +58,18 @@ while spiel_aktiv:
     print(f"Der Spieler {spieler_aktuell} ist am Zug.")
     
     spielzug = spieler_eingabe()
-    if spielzug:
-        spielfeld[spielzug] = spieler_aktuell
-        spielfeld_ausgeben()
+    if spielzug is None:
+        break
 
-        gewonnen = kontrolle_gewonnen()
-        if gewonnen:
-            print (f"Spieler {gewonnen} hat gewonnen!")
-            spiel_aktiv = False
-            break
+    spielfeld[spielzug] = spieler_aktuell
+    spielfeld_ausgeben()
 
-        unentschieden = kontrolle_unentschieden()
-        if unentschieden:
-            print ("Das Spiel ist Unentschieden ausgegangen")
-            spiel_aktiv = False
+    if kontrolle_gewonnen():
+        print(f"Spieler {spieler_aktuell} hat gewonnen!")
+        break
 
-        spieler_wechseln()
+    if kontrolle_unentschieden():
+        print("Das Spiel ist Unentschieden ausgegangen")
+        break
+
+    spieler_aktuell = spieler_wechseln(spieler_aktuell)
