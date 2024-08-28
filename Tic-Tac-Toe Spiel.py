@@ -27,21 +27,22 @@ def spieler_eingabe():
 
         if spielzug == 'exit':
             spiel_aktiv = False
-            return print("Das Spiel wurde beendet.")
+            print("Das Spiel wurde beendet.")
+            return
 
         try:
             spielzug = int(spielzug)
         except ValueError:
             print("Bitte eine Zahl eingeben")
         else:
-            if spielzug >= 1 and spielzug <= 9:
-                if spielfeld[spielzug] == 'X' or spielfeld[spielzug] == 'O':
+            if 1 <= spielzug >= 9:
+                if spielfeld[spielzug] in ['X', 'O']:
                     print("Dieses Feld ist bereits belegt!")
                     feld_belegt = True
                 else:
                     return spielzug
             else:
-                print("Bitte eine Zahl zwischen 1 und 9 eingeben")
+                print("Ungültige Eingabe. Bitte eine Zahl zwischen 1 und 9 eingeben")
 
 # Spieler wechseln
 def spieler_wechseln():
@@ -51,24 +52,11 @@ def spieler_wechseln():
 
 # Kontrolle auf Gewinnen
 def kontrolle_gewonnen():
-    if spielfeld[1] == spielfeld[2] == spielfeld[3]:
-        return spielfeld[1]
-    if spielfeld[4] == spielfeld[5] == spielfeld[6]:
-        return spielfeld[4]
-    if spielfeld[7] == spielfeld[8] == spielfeld[9]:
-        return spielfeld[7]
-    
-    if spielfeld[1] == spielfeld[4] == spielfeld[7]:
-        return spielfeld[1]
-    if spielfeld[2] == spielfeld[5] == spielfeld[8]:
-        return spielfeld[2]
-    if spielfeld[3] == spielfeld[6] == spielfeld[9]:
-        return spielfeld[3]
-    
-    if spielfeld[1] == spielfeld[5] == spielfeld[9]:
-        return spielfeld[1]
-    if spielfeld[3] == spielfeld[5] == spielfeld[7]:
-        return spielfeld[3]
+    kombination = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+    for a, b, c in kombination:
+        if spielfeld[a] == spielfeld[b] == spielfeld[c]:
+            return spielfeld[a]
+    return None
 
 # Kontrolle auf Unentschieden
 def kontrolle_unentschieden():
