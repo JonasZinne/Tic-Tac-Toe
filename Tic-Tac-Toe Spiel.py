@@ -83,7 +83,7 @@ def kontrolle_unentschieden():
 # Hauptschleife
 spielfeld_ausgeben()
 while spiel_aktiv:
-    print("Der Spieler " + spieler_aktuell + " ist am Zug.")
+    print(f"Der Spieler {spieler_aktuell} ist am Zug.")
     
     spielzug = spieler_eingabe()
     if spielzug:
@@ -92,7 +92,7 @@ while spiel_aktiv:
 
         gewonnen = kontrolle_gewonnen()
         if gewonnen:
-            print ("Spieler " + gewonnen + " hat gewonnen!")
+            print (f"Spieler {gewonnen} hat gewonnen!")
             spiel_aktiv = False
             break
 
