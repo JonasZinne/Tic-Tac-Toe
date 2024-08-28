@@ -1,9 +1,12 @@
+import random
+
 # Titel
 print("Tic-Tac-Toe Spiel")
+print()
 
 # Variablen
 spiel_aktiv = True
-spieler_aktuell = "X"
+spieler_aktuell = random.choice(['X', 'O'])
 x_wins = 0
 o_wins = 0
 
@@ -12,8 +15,13 @@ spielfeld = [''] + [str(i) for i in range(1, 10)]
 
 # Spielfeld ausgeben
 def spielfeld_ausgeben():
+    line_format = " {:^3} | {:^3} | {:^3} "
+    separator = "-----|-----|-----"
+
     for i in range(1, 10, 3):
-        print(f"{spielfeld[i]}|{spielfeld[i+1]}|{spielfeld[i+2]}")
+        print(line_format.format(spielfeld[i], spielfeld[i+1], spielfeld[i+2]))
+        if i < 7:
+            print(separator)
     print()
 
 # Spielereingabe 
