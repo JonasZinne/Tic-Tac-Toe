@@ -65,18 +65,18 @@ def kontrolle_unentschieden():
 
 # Spiel wiederholen
 def erneut_spielen():
-    antwort = input("\nMöchten Sie erneut spielen? (Ja oder Nein) ").lower()
-
+    while True:
+        antwort = input("\nMöchten Sie erneut spielen? (Ja oder Nein) ").lower()
+        if antwort in ['ja', 'nein']:
+            break
+        print("Ungültige Eingabe. Bitte 'Ja' oder 'Nein' eingeben.")
+    
     if antwort == 'ja':
         return True
-    elif antwort == 'nein':
+    else:
         print("Danke fürs Spielen!\n")
-
         print(f"Endstand - Spieler X: {x_wins}, Spieler O: {o_wins}")
         return False
-    else:
-        print("Ungültige Eingabe. Bitte 'Ja' oder 'Nein' eingeben.")
-        return erneut_spielen()
     
 # Spiel zurücksetzen
 def spiel_zuruecksetzen():
