@@ -72,7 +72,7 @@ def erneut_spielen():
     elif antwort == 'nein':
         print("Danke fürs Spielen!")
 
-        print(f"Gewonnene Spiele - Spieler X: {x_wins}, Spieler O: {o_wins}")
+        print(f"Endstand - Spieler X: {x_wins}, Spieler O: {o_wins}")
         return False
     else:
         print("Ungültige Eingabe. Bitte 'Ja' oder 'Nein' eingeben.")
@@ -81,8 +81,8 @@ def erneut_spielen():
 # Spiel zurücksetzen
 def spiel_zuruecksetzen():
     global spielfeld, spieler_aktuell
-    spielfeld = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    spieler_aktuell = 'X'
+    spielfeld = [''] + [str(i) for i in range(1, 10)]
+    spieler_aktuell = random.choice(['X', 'O'])
     spielfeld_ausgeben()
 
 # Hauptschleife
